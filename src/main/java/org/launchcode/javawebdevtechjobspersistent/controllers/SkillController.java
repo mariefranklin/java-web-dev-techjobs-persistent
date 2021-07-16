@@ -19,7 +19,7 @@ public class SkillController {
 
     @Autowired
     private SkillRepository skillRepository (Model model){
-        model.addAttribute(new Skill));
+        model.addAttribute(new Skill());
         SkillRepository.findAll();
         return "skill";
     }
@@ -54,5 +54,4 @@ public class SkillController {
     }
 }
 
-}
 
