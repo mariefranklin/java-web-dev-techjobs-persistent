@@ -1,6 +1,8 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -14,6 +16,12 @@ import java.util.List;
  */
 @Controller
 public class HomeController {
+
+    @Autowired
+    private String employerRepository;
+
+    @Autowired
+    private String skillRepository;
 
     @RequestMapping("")
     public String index(Model model) {
@@ -36,9 +44,11 @@ public class HomeController {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
+            model.addAttribute("employers", employerRepository.findAll());
+            model.addAttribute("skills", skillRepository.findAll());
             return "add";
         }
-
+        Employer employer = employerRepository.findById(employerId);
         return "redirect:";
     }
 
@@ -48,5 +58,8 @@ public class HomeController {
         return "view";
     }
 
+    @RequestParam List<Integer> skills;
+    List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skill);
+    newJob.setSkill(skillObjs);
 
 }

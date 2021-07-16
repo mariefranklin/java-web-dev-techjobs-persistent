@@ -1,39 +1,40 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Employer;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
 import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
-@Controller
-@RequestMapping("employers")
-public class EmployerController {
+public class SkillController {
 
     @Autowired
-    private EmployerRepository employerRepository (Model model){
-        model.addAttribute(new Employer());
-        EmployerRepository.findAll();
-        return "employers";
+    private SkillRepository skillRepository (Model model){
+        model.addAttribute(new Skill));
+        SkillRepository.findAll();
+        return "skill";
     }
-
     @GetMapping("add")
-    public String displayAddEmployerForm(Model model) {
-        model.addAttribute(new Employer());
-        return "employers/add";
+    public String displayAddSkillForm(Model model) {
+        model.addAttribute(new Skill());
+        return "skills/add";
     }
 
     @PostMapping("add")
-    public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
-                                    Errors errors, Model model) {
-        model.addAttribute("employers", EmployerRepository.findAll());
+    public String processAddSkillsForm(@ModelAttribute @Valid Skill newSkill,
+                                         Errors errors, Model model) {
+        model.addAttribute("skills", SkillRepository.findAll());
         if (errors.hasErrors()) {
-            return "employers/add";
+            return "skills/add";
         }
 
         return "redirect:";
@@ -52,3 +53,6 @@ public class EmployerController {
         }
     }
 }
+
+}
+
